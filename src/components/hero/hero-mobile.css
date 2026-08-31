@@ -1,0 +1,180 @@
+/*
+ * Hero responsive overrides.
+ *
+ * Imported AFTER hero.css (see Hero.tsx import order) so every rule here
+ * deterministically overrides the base/desktop styles in the cascade.
+ *
+ * <=900px — tablet & mobile: single column, vertical breathing rhythm,
+ *           background decoration pruning
+ * <=720px — marquee speed adjustment
+ * <=520px — mobile card sizing, fluid avatar, sticker/decoration hiding
+ */
+
+@media (max-width: 900px) {
+  .hero {
+    padding-top: calc(var(--nav-h) + 1.25rem);
+    padding-bottom: 2rem;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    /* Deliberate breathing gap between the copy block and the card. */
+    gap: clamp(2.25rem, 7vw, 3rem);
+  }
+
+  .hero__badge {
+    margin-bottom: 1rem;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 0.55rem;
+  }
+
+  .hero .hero__title {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero .hero__pitch {
+    margin-bottom: 1.1rem;
+    font-size: 0.97rem;
+  }
+
+  .hero__actions {
+    gap: 0.7rem;
+    /* Clear separation between the CTA block and the social links. */
+    margin-bottom: 1.6rem;
+  }
+
+  .hero__social {
+    gap: 1.4rem;
+  }
+
+  .hero__visual {
+    order: 2;
+  }
+
+  .id-card {
+    width: min(100%, 400px);
+  }
+
+  .hero__title .outline-word {
+    -webkit-text-stroke-width: 2.5px;
+  }
+
+  /* On tablet/mobile almost everything is full-width, so background
+     decorations would collide with real content. This hides the star
+     (near the name), the cross/"+" (near the socials), ring, triangle,
+     zigzag and dots. Only the top-left squiggle survives at this range. */
+  .hero__deco-star,
+  .hero__deco-cross,
+  .hero__deco-ring,
+  .hero__deco-triangle,
+  .hero__deco-zigzag,
+  .hero__deco-dots {
+    display: none;
+  }
+
+  .hero__deco-squiggle {
+    width: 90px;
+    top: 1.5%;
+    left: -12px;
+  }
+
+  .id-card {
+    transform: rotate(1.5deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .techstrip__track {
+    animation-duration: 52s;
+  }
+
+  .techstrip__row li {
+    font-size: 0.8rem;
+    gap: 1.6rem;
+  }
+
+  .techstrip__row {
+    gap: 1.6rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero__title .outline-word {
+    -webkit-text-stroke-width: 2px;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .id-card {
+    /* Fluid: full container width up to 380px. The .container already
+       reserves >= ~36px side margins, so this can never overflow. */
+    width: min(100%, 380px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .id-card__head {
+    font-size: 0.62rem;
+    padding: 0.55em 1em;
+  }
+
+  .id-card__body {
+    gap: 1rem;
+    padding: 1rem 1.1rem 0.7rem;
+  }
+
+  .id-card__avatar {
+    /* Photo-first: grows with the viewport but never dominates the card. */
+    width: clamp(72px, 20vw, 88px);
+    height: clamp(72px, 20vw, 88px);
+    font-size: clamp(1.4rem, 4.5vw, 1.75rem);
+  }
+
+  .id-card__name {
+    font-size: 1.05rem;
+  }
+
+  .id-card__role {
+    margin-top: 0.25rem;
+    font-size: 0.68rem;
+  }
+
+  .id-card__stack {
+    gap: 0.35rem;
+    padding: 0 1.1rem;
+  }
+
+  .id-card__stack li {
+    font-size: 0.6rem;
+    padding: 0.24em 0.65em;
+  }
+
+  .id-card__status {
+    margin: 0.8rem 1.1rem 0.3rem;
+    font-size: 0.62rem;
+  }
+
+  .id-card__barcode {
+    height: 24px;
+    margin: 0.8rem 1.1rem 0.95rem;
+  }
+
+  /*
+   * Mobile cleanup — the card becomes the single visual centerpiece.
+   * The three card stickers (JAVA, REAL-TIME, SECURE BY DEFAULT) and the
+   * last background squiggle are hidden at mobile widths only; desktop
+   * (>520px) keeps every sticker and decoration untouched.
+   */
+  .hero__float-tag--1,
+  .hero__float-tag--2,
+  .hero__float-tag--3 {
+    display: none;
+  }
+
+  .hero__deco-squiggle {
+    display: none;
+  }
+}

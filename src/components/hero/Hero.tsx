@@ -12,6 +12,7 @@ import { links, profile, avatarCandidates } from '../../data/social'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { HeroTechMarquee } from './HeroTechMarquee'
 import './hero.css'
+import './hero-mobile.css'
 
 export function Hero() {
   const heroRef = useRef<HTMLElement | null>(null)

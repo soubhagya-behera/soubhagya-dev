@@ -1,7 +1,7 @@
 .hero {
   position: relative;
-  padding-top: calc(var(--nav-h) + clamp(0.9rem, 2.5vh, 1.75rem));
-  padding-bottom: clamp(1.5rem, 3.5vh, 2.25rem);
+  padding-top: calc(var(--nav-h) + clamp(1.75rem, 4vh, 3rem));
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
   overflow: clip;
 }
 
@@ -18,8 +18,8 @@
 
 .hero__deco-squiggle {
   width: 150px;
-  top: 14%;
-  left: -20px;
+  top: 3%;
+  left: -24px;
   rotate: -8deg;
 }
 
@@ -47,13 +47,13 @@
 }
 
 .hero__deco-star {
-  top: 30%;
-  left: 46%;
+  top: 14%;
+  left: 51.5%;
 }
 
 .hero__deco-cross {
-  bottom: 30%;
-  right: 30%;
+  top: 55%;
+  left: 2.5%;
 }
 
 .hero__grid {
@@ -70,7 +70,7 @@
 }
 
 .hero__badge {
-  margin-bottom: clamp(0.8rem, 1.8vh, 1.1rem);
+  margin-bottom: clamp(1.1rem, 2.2vh, 1.5rem);
 }
 
 .hero__eyebrow {
@@ -79,13 +79,13 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--cobalt);
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.7rem;
 }
 
 .hero .hero__title {
   font-size: clamp(2rem, 12vw - 0.65rem, 5.5rem);
   line-height: 0.9;
-  margin-bottom: 1.1rem;
+  margin-bottom: clamp(1.4rem, 2.6vh, 2rem);
 }
 
 .hero__line {
@@ -135,7 +135,7 @@
 }
 
 .hero .hero__pitch {
-  margin-bottom: 1.15rem;
+  margin-bottom: clamp(1.4rem, 2.6vh, 2rem);
   max-width: 52ch;
 }
 
@@ -143,7 +143,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(1.4rem, 2.6vh, 1.9rem);
 }
 
 .hero__social {
@@ -311,178 +311,11 @@
   left: 4%;
 }
 
-@media (max-width: 900px) {
-  .hero {
-    padding-top: calc(var(--nav-h) + 0.7rem);
-    padding-bottom: 1rem;
-  }
-
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .hero__badge {
-    margin-bottom: 0.65rem;
-  }
-
-  .hero__eyebrow {
-    margin-bottom: 0.4rem;
-  }
-
-  .hero .hero__title {
-    margin-bottom: 0.75rem;
-  }
-
-  .hero .hero__pitch {
-    margin-bottom: 0.85rem;
-    font-size: 0.97rem;
-  }
-
-  .hero__actions {
-    gap: 0.65rem;
-    margin-bottom: 0.7rem;
-  }
-
-  .hero__social {
-    gap: 1.25rem;
-  }
-
-  .hero__visual {
-    order: 2;
-    padding-top: 0.55rem;
-  }
-
-  .id-card {
-    width: min(100%, 400px);
-  }
-
-  .hero__title .outline-word {
-    -webkit-text-stroke-width: 2.5px;
-  }
-
-  .hero__deco-star,
-  .hero__deco-cross,
-  .hero__deco-ring {
-    display: none;
-  }
-
-  .hero__deco-squiggle {
-    width: 100px;
-    top: 8%;
-    left: -12px;
-  }
-
-  .hero__deco-triangle {
-    top: 5%;
-    right: 4%;
-    scale: 0.7;
-  }
-
-  .hero__deco-zigzag {
-    width: 90px;
-    bottom: 40%;
-    left: auto;
-    right: 2%;
-  }
-
-  .hero__deco-dots {
-    width: 80px;
-    left: auto;
-    right: 6%;
-    bottom: auto;
-    top: 44%;
-  }
-
-  .id-card {
-    transform: rotate(1.5deg);
-  }
-}
-
-@media (max-width: 520px) {
-  .hero__title .outline-word {
-    -webkit-text-stroke-width: 2px;
-  }
-
-  .hero__actions .btn {
-    flex: 1 1 100%;
-  }
-
-  .id-card {
-    /* Fluid: full container width up to 380px. The .container already
-       reserves >= ~36px side margins, so this can never overflow. */
-    width: min(100%, 380px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .id-card__head {
-    font-size: 0.62rem;
-    padding: 0.55em 1em;
-  }
-
-  .id-card__body {
-    gap: 0.9rem;
-    padding: 0.9rem 1rem 0.6rem;
-  }
-
-  .id-card__avatar {
-    width: 76px;
-    height: 76px;
-    font-size: 1.5rem;
-  }
-
-  .id-card__name {
-    font-size: 1.05rem;
-  }
-
-  .id-card__role {
-    margin-top: 0.25rem;
-    font-size: 0.68rem;
-  }
-
-  .id-card__stack {
-    gap: 0.32rem;
-    padding: 0 1rem;
-  }
-
-  .id-card__stack li {
-    font-size: 0.6rem;
-    padding: 0.24em 0.65em;
-  }
-
-  .id-card__status {
-    margin: 0.7rem 1rem 0.25rem;
-    font-size: 0.62rem;
-  }
-
-  .id-card__barcode {
-    height: 24px;
-    margin: 0.7rem 1rem 0.85rem;
-  }
-
-  /* Keep decorative stickers attached to the larger card without
-     drifting outside the container or colliding with card text. */
-  .hero__float-tag--1 {
-    top: -5%;
-    right: 5%;
-  }
-
-  .hero__float-tag--2 {
-    bottom: 21%;
-    right: 0;
-  }
-
-  .hero__float-tag--3 {
-    bottom: -4.5%;
-    left: 4%;
-  }
-}
-
 /* --- technology strip (seamless marquee) --- */
 
 .techstrip {
   position: relative;
-  margin-top: clamp(1.5rem, 3vh, 2.25rem);
+  margin-top: clamp(2.5rem, 6vh, 4rem);
   overflow: hidden;
   background: var(--ink);
   border-block: var(--border-w) solid var(--ink);
@@ -526,21 +359,6 @@
 @keyframes techstrip-scroll {
   to {
     transform: translateX(-50%);
-  }
-}
-
-@media (max-width: 720px) {
-  .techstrip__track {
-    animation-duration: 52s;
-  }
-
-  .techstrip__row li {
-    font-size: 0.8rem;
-    gap: 1.6rem;
-  }
-
-  .techstrip__row {
-    gap: 1.6rem;
   }
 }
 
