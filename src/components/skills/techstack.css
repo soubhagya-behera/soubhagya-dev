@@ -1,0 +1,126 @@
+.stack__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.stack-card {
+  height: 100%;
+  background: var(--white);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.3rem, 3vw, 1.9rem);
+  transform: rotate(0.35deg);
+  transition:
+    transform var(--dur-med) var(--spring),
+    box-shadow var(--dur-med) var(--spring);
+}
+
+.stack__grid > div:nth-child(even) .stack-card {
+  transform: rotate(-0.5deg);
+}
+
+.stack-card:hover {
+  transform: translateY(-6px) rotate(0deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.stack-card__head {
+  margin-bottom: 1.2rem;
+}
+
+.stack-card__head p {
+  margin-top: 0.7rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.stack-card--coral .sticker--coral {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.stack-card__skills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.stack-chip {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.74rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.34em 0.9em;
+  background: var(--cream);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--dur-fast) var(--spring),
+    background-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) var(--spring);
+}
+
+.stack-chip:hover {
+  transform: translateY(-3px) rotate(-2deg);
+  box-shadow: var(--shadow-sm);
+  background: var(--yellow);
+}
+
+.stack-card--cobalt .stack-chip:hover {
+  background: var(--cobalt);
+  color: var(--white);
+}
+
+.stack-card--coral .stack-chip:hover {
+  background: var(--coral);
+  color: var(--white);
+}
+
+.stack-card--mint .stack-chip:hover {
+  background: var(--mint);
+}
+
+.stack__learning {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: clamp(1.8rem, 4vw, 2.6rem);
+  border: var(--border-w) dashed var(--ink);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.stack__learning-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--cobalt);
+}
+
+.stack__learning ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.stack__learning-dot {
+  position: absolute;
+  top: -7px;
+  right: 22px;
+}
+
+@media (max-width: 800px) {
+  .stack__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stack-card {
+    transform: none;
+  }
+}

@@ -1,0 +1,360 @@
+import type { AccentName, ProcessStep, Project } from '../types'
+
+export const projects: Project[] = [
+  {
+    id: 'greencart',
+    slug: 'greencart',
+    number: '01',
+    title: 'GreenCart',
+    category: 'Full-Stack E-Commerce Platform',
+    accent: 'cobalt',
+    description:
+      'Grocery delivery platform with a React storefront, JWT-secured Spring Boot API, Razorpay checkout and role-based dashboards for customers and admins.',
+    longDescription: [
+      'GreenCart is a complete grocery e-commerce system: customers browse a catalog, fill a cart, pay through Razorpay and track their orders — while admins manage products, inventory and incoming orders from a separate dashboard.',
+      'The backend is a layered Spring Boot application that owns every business rule: pricing, stock checks, order state transitions and payment verification all happen server-side. The React frontend is a consumer of its REST API, never the source of truth.',
+    ],
+    problem:
+      'A small grocery business needs more than a product page — inventory, carts, payments, order history and an admin view usually mean gluing together tools that do not talk to each other.',
+    solution:
+      'One coherent full-stack system: a Spring Boot REST API owning business rules and persistence, a React SPA for shopping and administration, secured end-to-end with JWT roles and server-verified Razorpay payments.',
+    features: [
+      'Product catalog with browsing, search and pagination',
+      'Cart and checkout flow integrated with Razorpay payments',
+      'JWT authentication with CUSTOMER and ADMIN role separation',
+      'Role-based dashboards — customers track orders, admins manage products and inventory',
+      'Order lifecycle tracking from placement to delivery',
+      'Server-side validation on every write endpoint',
+    ],
+    quickFeatures: ['Role-based dashboards', 'Order management', 'Payment integration', 'Delivery workflow'],
+    engineeringHighlights: [
+      'Razorpay checkout verified server-side',
+      'CUSTOMER / ADMIN role separation',
+      'Order lifecycle tracking',
+    ],
+    security: [
+      'JWT authentication with CUSTOMER / ADMIN role separation',
+      'Cart totals computed server-side — client tampering cannot change prices',
+      'Razorpay payment signatures verified before an order is confirmed',
+      'Bean Validation on every write endpoint',
+    ],
+    technologies: ['Java', 'Spring Boot', 'React', 'MySQL'],
+    techGroups: [
+      { label: 'Backend', items: ['Java', 'Spring Boot', 'Spring Security', 'JPA / Hibernate', 'REST APIs'] },
+      { label: 'Frontend', items: ['React', 'JavaScript'] },
+      { label: 'Database', items: ['MySQL'] },
+      { label: 'Payments', items: ['Razorpay'] },
+      { label: 'Tools', items: ['Maven', 'Postman', 'Git'] },
+    ],
+    architecture: [
+      { label: 'React Storefront' },
+      { label: 'REST Controllers' },
+      { label: 'Service Layer', note: 'business rules' },
+      { label: 'Spring Data JPA' },
+      { label: 'MySQL' },
+    ],
+    architectureNote:
+      'Classic layered architecture: controllers stay thin, services hold the domain logic, repositories stay boring. Payments are only confirmed after server-side signature verification.',
+    challenges: [
+      'Keeping cart totals authoritative on the server so client-side tampering cannot change prices',
+      'Verifying Razorpay payment signatures before an order is ever confirmed',
+      'Designing JPA relationships that avoid N+1 queries on catalog and order listing pages',
+      'Separating customer and admin concerns cleanly with role-based route guards',
+    ],
+    learnings: [
+      'Payments taught me that trust boundaries live in the backend — the frontend is UX, never the source of truth.',
+      'Working with Hibernate relations made me plan entity graphs before writing code, not after.',
+    ],
+    githubUrl: 'https://github.com/soubhagya-behera/GreenCart',
+    featured: true,
+  },
+  {
+    id: 'api-rate-limiter',
+    slug: 'api-rate-limiter',
+    number: '02',
+    title: 'RateLimitX',
+    category: 'Distributed Rate Limiting · Redis & Lua',
+    accent: 'coral',
+    description:
+      'Redis-powered API rate limiter built with Spring Boot and Docker, using atomic Lua scripts for accurate token buckets under concurrent traffic.',
+    longDescription: [
+      'RateLimitX is a focused backend tool: a Spring Boot filter that protects any API with Redis-backed rate limiting. Limits are enforced by Lua scripts executing atomically inside Redis, which means no race conditions between instances and no drift under parallel load.',
+      'It is designed to be boring in production — deterministic limits, standard X-RateLimit headers, and clean 429 responses that tell clients when to come back.',
+    ],
+    problem:
+      'In-memory limiters reset per instance and fall apart the moment you scale horizontally. Distributed systems need one shared source of truth for how many requests a client has made.',
+    solution:
+      'A drop-in Spring Boot filter backed by Redis. Lua scripts run token-bucket checks atomically inside Redis, so limits stay exact even when requests hit multiple instances in parallel.',
+    features: [
+      'Token bucket algorithm executed atomically in Redis via Lua',
+      'Per-client limits keyed by API key or IP',
+      'Standard rate-limit response headers (X-RateLimit-*)',
+      'Configurable windows and thresholds per rule',
+      'Dockerized setup for local and cloud deployment',
+    ],
+    quickFeatures: ['Atomic Lua token bucket', 'Per-client limits (key / IP)', 'X-RateLimit-* headers', 'Dockerized deployment'],
+    engineeringHighlights: [
+      'No check-then-set races between instances',
+      'Deterministic 429 responses with retry hints',
+      'Shared Redis counters as the single source of truth',
+    ],
+    security: [
+      'Limits keyed by API key or client IP',
+      'Atomic Lua execution eliminates check-then-set race conditions',
+      'Standard headers let clients back off without being blocked silently',
+    ],
+    technologies: ['Java', 'Spring Boot', 'Redis', 'Lua', 'Docker'],
+    techGroups: [
+      { label: 'Backend', items: ['Java', 'Spring Boot', 'Servlet Filters'] },
+      { label: 'Data & Scripts', items: ['Redis', 'Lua'] },
+      { label: 'Infrastructure', items: ['Docker'] },
+    ],
+    architecture: [
+      { label: 'Client' },
+      { label: 'Filter Chain', note: 'rate limit check' },
+      { label: 'Lua Script', note: 'atomic' },
+      { label: 'Redis' },
+      { label: 'Protected API' },
+    ],
+    architectureNote:
+      'The critical section lives inside Redis as an atomic Lua script — application instances only interpret the verdict, they never count requests themselves.',
+    challenges: [
+      'Avoiding race conditions where two instances admit the same request simultaneously',
+      'Choosing key structures that isolate clients without exploding Redis memory',
+      'Returning useful 429 responses with retry hints instead of bare rejections',
+    ],
+    learnings: [
+      'Concurrency bugs disappear when the critical section moves into an atomic script — Redis plus Lua made the limiter boringly correct.',
+    ],
+    githubUrl: 'https://github.com/soubhagya-behera/api-rate-limiter',
+    featured: true,
+  },
+  {
+    id: 'pingme',
+    slug: 'pingme',
+    number: '03',
+    title: 'PingMe',
+    category: 'Real-Time Chat · WebSocket / STOMP',
+    status: 'In development',
+    accent: 'mint',
+    description:
+      'WebSocket-based chat platform delivering messages, presence and typing indicators instantly over STOMP, with persistent history on a Spring Boot backend.',
+    longDescription: [
+      'PingMe is what happens when polling is not good enough. Conversations update the moment something happens: messages arrive over a STOMP channel, typing indicators flicker, presence changes propagate live.',
+      'Every message persists through JPA, so history survives refreshes. The interesting engineering lives at the edges — resyncing state after a dropped connection without duplicating messages, and making sure users only ever receive events for conversations they belong to.',
+    ],
+    problem:
+      'HTTP polling wastes requests and feels laggy. Chat needs a persistent duplex channel plus careful handling of reconnects, ordering and unread state.',
+    solution:
+      'A STOMP-over-WebSocket channel between React and Spring Boot pushes events the instant they happen, while messages persist to the database so history survives refreshes and reconnects.',
+    features: [
+      'Real-time messaging over STOMP with SockJS fallback',
+      'Presence indicators and typing events broadcast per conversation',
+      'Unread message counts synced across sessions',
+      'Message history persisted and paginated',
+      'JWT-authenticated WebSocket handshake',
+    ],
+    quickFeatures: ['STOMP messaging + SockJS fallback', 'Presence & typing indicators', 'Unread counts across sessions', 'Paginated message history'],
+    engineeringHighlights: [
+      'STOMP over WebSocket',
+      'Presence + typing events',
+      'Persistent, paginated history',
+    ],
+    security: [
+      'JWT validated at the WebSocket handshake',
+      'Conversation-scoped subscriptions — users only receive their own events',
+      'Persistence queries scoped to the authenticated user',
+    ],
+    technologies: ['Java', 'Spring Boot', 'WebSocket', 'STOMP', 'React'],
+    techGroups: [
+      { label: 'Real-Time', items: ['WebSocket', 'STOMP', 'SockJS'] },
+      { label: 'Backend', items: ['Java', 'Spring Boot', 'JWT'] },
+      { label: 'Frontend', items: ['React', 'JavaScript'] },
+      { label: 'Database', items: ['MySQL'] },
+    ],
+    architecture: [
+      { label: 'React Client' },
+      { label: 'STOMP / WebSocket' },
+      { label: 'Spring Boot', note: 'event handlers' },
+      { label: 'Persistence Layer' },
+      { label: 'MySQL' },
+    ],
+    architectureNote:
+      'The duplex channel runs beside the REST API: HTTP handles auth and history, WebSocket handles everything that must feel instant.',
+    challenges: [
+      'Resyncing UI state after dropped connections without duplicating messages',
+      'Keeping event ordering consistent when socket messages race persistence writes',
+      'Scoping subscriptions so users only receive events for their own conversations',
+    ],
+    learnings: [
+      'Real-time systems are mostly about failure cases — what happens after the connection dies defines the product.',
+    ],
+    githubUrl: 'https://github.com/soubhagya-behera/pingme',
+    featured: true,
+  },
+  {
+    id: 'secure-digital-banking',
+    slug: 'secure-digital-banking',
+    number: '04',
+    title: 'Secure Digital Banking',
+    category: 'Security-First Banking Application',
+    accent: 'yellow',
+    description:
+      'Digital banking management system featuring OTP-verified access, fraud-flagged transactions, Razorpay-powered deposits and an embedded AI chatbot.',
+    longDescription: [
+      'Secure Digital Banking is a management system built around a simple premise: banking flows deserve stronger-than-average defaults. Sensitive operations pass through OTP verification, transactions are screened by fraud-detection rules, and deposits run through Razorpay.',
+      'On top of the core ledger sit an admin view and an AI chatbot for common banking questions. The project taught me that security is not a feature you bolt on at the end — it is a workflow that shapes every endpoint.',
+    ],
+    problem:
+      'Banking-style applications demand verified identities, monitored transactions and auditable money movement — requirements most demo projects skip entirely.',
+    solution:
+      'A Spring Boot banking application with OTP challenges on sensitive operations, rule-based fraud flags on transactions, Razorpay-integrated deposits and an AI chatbot layer for user self-service.',
+    features: [
+      'Account dashboard with balances and transaction history',
+      'OTP verification on sensitive operations',
+      'Fraud-detection rules flagging suspicious transaction patterns',
+      'Deposits integrated with Razorpay',
+      'AI chatbot for common banking questions',
+      'Admin views separated from customer flows',
+    ],
+    quickFeatures: ['OTP verification flow', 'Fraud flags on transfers', 'Razorpay deposits', 'AI chatbot assist'],
+    engineeringHighlights: [
+      'Multi-step OTP access flow',
+      'Transaction fraud rules',
+      'Payment gateway integration',
+    ],
+    security: [
+      'OTP challenge required for sensitive operations',
+      'Fraud-detection rules screen transaction attempts',
+      'Server-side validation on all money-movement endpoints',
+    ],
+    technologies: ['Java', 'Spring Boot', 'MySQL', 'Razorpay'],
+    techGroups: [
+      { label: 'Backend', items: ['Java', 'Spring Boot', 'Spring MVC'] },
+      { label: 'Database', items: ['MySQL'] },
+      { label: 'Payments', items: ['Razorpay'] },
+      { label: 'Extras', items: ['OTP auth', 'Fraud rules', 'AI chatbot'] },
+    ],
+    architecture: [
+      { label: 'Web Client' },
+      { label: 'Controllers' },
+      { label: 'Banking Services', note: 'fraud checks' },
+      { label: 'Spring Data JPA' },
+      { label: 'MySQL' },
+    ],
+    architectureNote:
+      'Money-touching operations route through the banking service layer where OTP state and fraud rules are evaluated before anything is written.',
+    challenges: [
+      'Designing fraud rules that catch suspicious patterns without drowning real users in false positives',
+      'Keeping the OTP flow testable without weakening it in development',
+      'Modelling accounts and transactions so balances can always be derived, not just stored',
+    ],
+    learnings: [
+      'Security features are workflows, not annotations — OTP shaped the design of every endpoint it touches.',
+      'Modelling money movement teaches invariant thinking: some numbers must never disagree.',
+    ],
+    githubUrl: 'https://github.com/soubhagya-behera/secure-digital-banking-management-system',
+    featured: true,
+  },
+  {
+    id: 'devscout-ai',
+    slug: 'devscout-ai',
+    number: '05',
+    title: 'DevScout-AI',
+    category: 'Developer Analytics · GitHub API + AI',
+    accent: 'yellow',
+    description:
+      'Spring Boot service that profiles GitHub developers — pulling repositories through the GitHub API, detecting technologies and generating AI hiring insights with Gemini.',
+    longDescription: [
+      'DevScout-AI answers a recruiter question automatically: what is this GitHub profile actually good at? The service fetches repository data through the GitHub API, detects languages and frameworks from real signals, computes a weighted developer score, then hands the structured analysis to Gemini for human-readable insights.',
+      'The design principle: AI narrates, it does not investigate. Verified data goes in first; the model turns numbers into prose instead of guessing.',
+    ],
+    problem:
+      'Evaluating a developer from a GitHub profile means manually reading dozens of repositories. Recruiters need signal, not a repo list.',
+    solution:
+      'An automated pipeline: fetch and analyze repository data via the GitHub API, detect technologies from code metadata, compute a developer score, and have Gemini turn the structured analysis into readable hiring insights.',
+    features: [
+      'Repository ingestion through the GitHub REST API',
+      'Automatic technology and framework detection',
+      'Weighted developer scoring model',
+      'Gemini-generated insights from structured analysis',
+      'Response caching to respect API rate limits',
+    ],
+    quickFeatures: ['GitHub API pipeline', 'Weighted scoring model', 'Gemini-generated reports', 'Rate-limit-friendly caching'],
+    engineeringHighlights: [
+      'GitHub API pipeline',
+      'Weighted scoring model',
+      'AI-generated reports',
+    ],
+    technologies: ['Java', 'Spring Boot', 'GitHub API', 'Gemini AI', 'React'],
+    techGroups: [
+      { label: 'Backend', items: ['Java', 'Spring Boot', 'REST APIs'] },
+      { label: 'Integrations', items: ['GitHub API', 'Gemini AI'] },
+      { label: 'Frontend', items: ['React', 'JavaScript'] },
+    ],
+    architecture: [
+      { label: 'Web Client' },
+      { label: 'Spring Boot API' },
+      { label: 'GitHub Adapter', note: 'REST client' },
+      { label: 'Analysis Engine' },
+      { label: 'Gemini AI' },
+    ],
+    architectureNote:
+      'External calls are isolated behind adapter boundaries — the analysis engine works on plain data, so swapping providers never touches core logic.',
+    challenges: [
+      'Handling GitHub rate limits and partial failures gracefully mid-analysis',
+      'Turning noisy raw repo metadata into features a scoring model can trust',
+      'Prompting Gemini with enough structure that outputs stay comparable across developers',
+    ],
+    learnings: [
+      'LLMs are unreliable narrators — giving Gemini structured, verified data first made its output dramatically more useful.',
+    ],
+    githubUrl: 'https://github.com/soubhagya-behera/DevScout-AI',
+    featured: false,
+  },
+]
+
+export const getProjectBySlug = (slug: string): Project | undefined =>
+  projects.find(project => project.slug === slug || project.id === slug)
+
+export const accentOf = (accent: AccentName) => ACCENTS[accent]
+
+export const ACCENTS: Record<AccentName, { main: string; tint: string }> = {
+  coral: { main: '#FF5A52', tint: '#FFE4E2' },
+  cobalt: { main: '#3157E8', tint: '#DFE5FC' },
+  yellow: { main: '#FFC928', tint: '#FFF3D1' },
+  mint: { main: '#42D6A4', tint: '#DCF7EC' },
+}
+
+export const processSteps: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Understand',
+    description: 'Requirements, constraints and the boring questions nobody asked yet.',
+    accent: 'coral',
+  },
+  {
+    number: '02',
+    title: 'Design',
+    description: 'Data model first, API contracts second, diagrams before code.',
+    accent: 'cobalt',
+  },
+  {
+    number: '03',
+    title: 'Build',
+    description: 'Backend core first, then frontend against the real API — no mock drift.',
+    accent: 'yellow',
+  },
+  {
+    number: '04',
+    title: 'Test',
+    description: 'Edge cases, failure paths, concurrency and the unhappy users.',
+    accent: 'mint',
+  },
+  {
+    number: '05',
+    title: 'Ship',
+    description: 'Dockerize, deploy, watch the logs, repeat.',
+    accent: 'coral',
+  },
+]

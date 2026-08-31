@@ -1,0 +1,75 @@
+export type AccentName = 'coral' | 'cobalt' | 'yellow' | 'mint'
+
+export interface TechGroup {
+  label: string
+  items: string[]
+}
+
+export interface ArchitectureLayer {
+  label: string
+  note?: string
+}
+
+export interface Project {
+  id: string
+  slug: string
+  number: string
+  title: string
+  category: string
+  status?: string
+  accent: AccentName
+  description: string
+  longDescription: string[]
+  problem: string
+  solution: string
+  features: string[]
+  quickFeatures: string[]
+  engineeringHighlights: string[]
+  security?: string[]
+  technologies: string[]
+  techGroups: TechGroup[]
+  architecture: ArchitectureLayer[]
+  architectureNote?: string
+  challenges: string[]
+  learnings: string[]
+  githubUrl: string
+  liveUrl?: string
+  image?: string
+  gallery?: string[]
+  featured: boolean
+}
+
+export interface ExperienceItem {
+  id: string
+  kind: 'independent' | 'education'
+  role: string
+  org: string
+  period: string
+  location: string
+  description: string
+  achievements: string[]
+  technologies: string[]
+}
+
+export interface SkillGroup {
+  id: string
+  label: string
+  blurb: string
+  accent: AccentName
+  skills: string[]
+}
+
+export interface Repository {
+  name: string
+  url: string
+  description: string
+  language: string | null
+  stars: number | null
+}
+
+export interface ProcessStep {
+  number: string
+  title: string
+  description: string
+  accent: AccentName
+}

@@ -1,0 +1,37 @@
+:root {
+  --cream: #f8f1df;
+  --cream-deep: #f0e5cb;
+  --ink: #111111;
+  --ink-soft: #45413a;
+  --coral: #ff5a52;
+  --cobalt: #3157e8;
+  --yellow: #ffc928;
+  --mint: #42d6a4;
+  --white: #ffffff;
+
+  --font-display: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  --border-w: 3px;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 2px 2px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --shadow-md: 7px 7px 0 var(--ink);
+  --shadow-lg: 10px 10px 0 var(--ink);
+  --shadow-xl: 14px 14px 0 var(--ink);
+
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.18s;
+  --dur-med: 0.32s;
+  --dur-slow: 0.7s;
+
+  --section-space: clamp(4rem, 8vw, 6.5rem);
+  --container: 1180px;
+  --nav-h: 68px;
+}

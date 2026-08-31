@@ -1,0 +1,151 @@
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 0;
+  bottom: 0;
+  border-left: 3px dashed rgba(17, 17, 17, 0.3);
+}
+
+.timeline__item {
+  position: relative;
+  padding-left: clamp(2.8rem, 6vw, 4rem);
+}
+
+.timeline__item + .timeline__item {
+  margin-top: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.timeline__node {
+  position: absolute;
+  left: 8px;
+  top: 26px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: var(--border-w) solid var(--ink);
+  box-shadow: var(--shadow-xs);
+  z-index: 1;
+}
+
+.timeline__node--independent {
+  background: var(--coral);
+}
+
+.timeline__node--education {
+  background: var(--mint);
+}
+
+.timeline__group {
+  padding-left: clamp(2.8rem, 6vw, 4rem);
+  margin-top: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin-bottom: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.timeline > .timeline__group:first-child {
+  margin-top: 0.2rem;
+}
+
+.xp-card {
+  background: var(--white);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.3rem, 3vw, 1.9rem);
+  transform: rotate(-0.35deg);
+  transition:
+    transform var(--dur-med) var(--spring),
+    box-shadow var(--dur-med) var(--spring);
+}
+
+.xp-card:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.xp-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.xp-card__period {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.35em 0.9em;
+}
+
+.xp-card__org {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+
+.xp-card__loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-top: 0.45rem;
+}
+
+.xp-card__desc {
+  margin-top: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.xp-card__list {
+  list-style: none;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.xp-card__list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.xp-card--independent .xp-card__list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-weight: 900;
+}
+
+.xp-card--education .xp-card__list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cobalt);
+  font-weight: 900;
+}
+
+.xp-card__tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.15rem;
+}
