@@ -1,37 +1,7 @@
-import type { ReactNode } from 'react'
 import { SectionHeader } from '../ui/SectionHeader'
 import { Reveal } from '../ui/Reveal'
-import { Sticker } from '../ui/Sticker'
 import { Shape } from '../decorations/Shape'
 import './about.css'
-
-interface MiniCard {
-  number: string
-  title: string
-  accent: 'coral' | 'cobalt' | 'mint'
-  items: string[]
-}
-
-const MINI_CARDS: MiniCard[] = [
-  {
-    number: '01',
-    title: 'Backend',
-    accent: 'coral',
-    items: ['Java / Spring Boot', 'REST API design', 'Security & JWT', 'JPA / Hibernate'],
-  },
-  {
-    number: '02',
-    title: 'Full-Stack',
-    accent: 'cobalt',
-    items: ['React & responsive UI', 'API integration', 'State that scales honestly'],
-  },
-  {
-    number: '03',
-    title: 'Systems',
-    accent: 'mint',
-    items: ['Real-time messaging', 'Caching with Redis', 'Concurrency-aware design', 'Relational databases'],
-  },
-]
 
 export function About() {
   return (
@@ -54,19 +24,19 @@ export function About() {
         <div className="about__grid">
           <Reveal className="about__text">
             <p>
-              I&apos;m Soubhagya Kumar Behera — a Java full-stack developer from Bhubaneswar, India,
-              finishing my MCA in 2026. My core work is the backend: REST APIs with Spring Boot,
-              security with JWT and Spring Security, persistence with JPA / Hibernate, and data
-              modelling in MySQL and Redis.
+              I&apos;m Soubhagya Kumar Behera, a Java Full-Stack Developer focused on building
+              secure, scalable and real-time web applications. I work primarily with Java, Spring
+              Boot, React, REST APIs, JPA/Hibernate and modern backend architecture.
             </p>
             <p>
-              I learn by shipping complete systems end to end — an e-commerce platform with real
-              payment flows, a WebSocket chat backend, a Redis-backed rate limiter. Every project is
-              public, documented and open to review on GitHub.
+              I learn by building complete systems end-to-end — from authentication and data
+              modelling to real-time communication, payments and performance. My projects are built
+              around practical engineering decisions, clean architecture and production-minded
+              reliability.
             </p>
             <p>
-              What I look for in an engineering problem: a clear data model, honest failure paths
-              and layers that own their decisions.
+              I&apos;m currently looking for opportunities where I can contribute to backend and
+              full-stack products while continuing to grow as an engineer.
             </p>
           </Reveal>
 
@@ -107,31 +77,9 @@ export function About() {
             </div>
           </Reveal>
         </div>
-
-        <div className="about__minis">
-          {MINI_CARDS.map((mini, index) => (
-            <Reveal key={mini.number} delay={index * 110}>
-              <article className={`mini-card mini-card--${mini.accent}`}>
-                <div className="mini-card__top">
-                  <Sticker accent="ghost">{mini.number}</Sticker>
-                  <h3 className="display-md">{mini.title}</h3>
-                </div>
-                <MiniList items={mini.items} />
-              </article>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   )
 }
 
-function MiniList({ items }: { items: ReactNode[] }) {
-  return (
-    <ul>
-      {items.map(item => (
-        <li key={String(item)}>{item}</li>
-      ))}
-    </ul>
-  )
-}
+
