@@ -33,6 +33,13 @@ const learningItems = ['Docker', 'AWS', 'Microservices', 'System Design']
 
 const openRoles = ['Java Developer', 'Backend Developer', 'Software Engineer']
 
+const aboutMeItems = [
+  'Java Full-Stack Developer',
+  'MCA Graduate · 2026',
+  'Backend-focused engineer',
+  'Secure, scalable & real-time systems',
+]
+
 interface InfoCardProps {
   title: string
   index: string
@@ -40,9 +47,21 @@ interface InfoCardProps {
   children: ReactNode
 }
 
+/* Reusable Memphis footer — extracted from Engineer Mode. Every card shares
+   the identical YELLOW STAR + BARCODE identity marks so the 3×2 wall reads as
+   one component family. */
+function CardFooterDecoration() {
+  return (
+    <>
+      <Shape variant="star" size={34} filled color="var(--yellow)" className="about-card__star" />
+      <div className="about-card__barcode" aria-hidden="true" />
+    </>
+  )
+}
+
 /* Compact sibling of the Engineer Mode card: same coral header, black border,
-   thick offset shadow, hand-drawn rotation, star + barcode identity marks and
-   the exact same pointer-follow interaction via the shared hook. */
+   thick offset shadow, hand-drawn rotation and the exact same pointer-follow
+   interaction via the shared hook. Content shape varies, shell is identical. */
 function InfoCard({ title, index, delay, children }: InfoCardProps) {
   const tiltRef = useRef<HTMLElement | null>(null)
   useCardTilt(tiltRef)
@@ -56,8 +75,7 @@ function InfoCard({ title, index, delay, children }: InfoCardProps) {
         </header>
         <div className="info-card__body">{children}</div>
         <div className="info-card__foot" aria-hidden="true">
-          <Shape variant="star" size={16} filled color="var(--yellow)" className="info-card__star" />
-          <div className="info-card__barcode" />
+          <CardFooterDecoration />
         </div>
       </article>
     </Reveal>
@@ -89,10 +107,11 @@ export function About() {
             not a separate right-side column. */}
         <div className="about__grid">
           <InfoCard title="ABOUT ME" index="01" delay={0}>
-            <p className="info-card__lead">
-              Java Full-Stack Developer focused on secure, scalable and real-time web
-              applications.
-            </p>
+            <ul className="info-card__list">
+              {aboutMeItems.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
             <div className="info-card__chips">
               <span className="info-chip">MCA · 2026</span>
               <span className="info-chip">Java · Spring Boot · React</span>
@@ -124,8 +143,7 @@ export function About() {
                 </div>
               </dl>
               <div className="dev-card__foot">
-                <Shape variant="star" size={34} filled color="var(--yellow)" className="float-e dev-card__shape" />
-                <div className="dev-card__barcode" aria-hidden="true" />
+                <CardFooterDecoration />
               </div>
             </div>
           </Reveal>
@@ -150,13 +168,14 @@ export function About() {
           </InfoCard>
 
           <InfoCard title="CURRENTLY LEARNING" index="04" delay={280}>
-            <div className="info-card__chips">
+            <ul className="info-card__list">
               {learningItems.map(item => (
-                <span key={item} className="info-chip">
-                  {item}
-                </span>
+                <li key={item}>{item}</li>
               ))}
-            </div>
+            </ul>
+            <p className="info-card__lead info-card__lead--small">
+              Building stronger foundations in deployment, distributed systems and system design.
+            </p>
           </InfoCard>
 
           <InfoCard title="OPEN TO WORK" index="05" delay={350}>

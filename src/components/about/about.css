@@ -1,8 +1,6 @@
 .about {
-  /* Tighter, intentional rhythm between the hero tech marquee and Stack.
-     Keeps the section compact while preserving Memphis breathing room. */
   padding-top: clamp(1.5rem, 2.5vw, 2.25rem);
-  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1.25rem, 2vw, 1.75rem);
 }
 
 /* --- one coherent 3 x 2 About card wall ---------------------------------- */
@@ -10,15 +8,17 @@
 .about__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  grid-auto-rows: 1fr;
+  gap: clamp(1rem, 2vw, 1.5rem);
   align-items: stretch;
 }
 
 /* Cells stretch so every card in a row shares one clean row height.
-   Engineer Mode is a regular grid cell — no wider than the others. */
+   Engineer Mode is a regular grid cell — no wider or taller than siblings. */
 .about__cell {
   display: flex;
   min-width: 0;
+  min-height: 0;
 }
 
 /* --- shared Memphis card system (Engineer Mode is the reference) --------- */
@@ -26,6 +26,7 @@
 .dev-card,
 .info-card {
   width: 100%;
+  min-height: 340px;
   display: flex;
   flex-direction: column;
   background: var(--white);
@@ -33,8 +34,6 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  /* Pointer-follow tilt driven by --px / --py (see useCardTilt.ts).
-     The hand-drawn rest rotation stays; the tilt is deliberately restrained. */
   transform:
     perspective(900px)
     rotate(var(--rest-rotate, -0.7deg))
@@ -51,16 +50,15 @@
 }
 
 .dev-card {
-  --rest-rotate: -1.4deg;
+  --rest-rotate: -1.1deg;
 }
 
-/* Subtle hand-drawn rotation alternation across the grid. */
 .about__cell:nth-child(odd) .info-card {
   --rest-rotate: -0.7deg;
 }
 
 .about__cell:nth-child(even) .info-card {
-  --rest-rotate: 0.7deg;
+  --rest-rotate: 0.65deg;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -71,7 +69,6 @@
   }
 }
 
-/* Reduced motion: static hand-drawn rotation only, no pointer tilt. */
 @media (prefers-reduced-motion: reduce) {
   .dev-card,
   .info-card {
@@ -86,6 +83,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
+  min-height: 44px;
   background: var(--coral);
   color: var(--white);
   font-family: var(--font-mono);
@@ -101,10 +99,15 @@
   opacity: 0.9;
 }
 
+/* --- Engineer Mode body (same padding language as info cards) ------------- */
+
 .dev-card__rows {
   flex: 1;
   margin: 0;
-  padding: 0.4rem 1.15rem;
+  padding: 0.85rem 1.15rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .dev-card__rows > div {
@@ -112,7 +115,7 @@
   grid-template-columns: 92px 1fr;
   gap: 0.9rem;
   align-items: baseline;
-  padding: 0.7rem 0;
+  padding: 0.58rem 0;
   border-bottom: 2px dashed rgba(17, 17, 17, 0.18);
 }
 
@@ -131,25 +134,29 @@
 .dev-card__rows dd {
   margin: 0;
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
+  line-height: 1.3;
 }
 
-.dev-card__foot {
+/* --- unified Memphis footer (extracted from Engineer Mode) --------------- */
+
+.dev-card__foot,
+.info-card__foot {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0 1.15rem 1.15rem;
+  gap: 0.85rem;
+  padding: 0.75rem 1.15rem 1rem;
+  margin-top: auto;
 }
 
-.dev-card__shape {
+.about-card__star {
   position: static;
   flex-shrink: 0;
 }
 
-/* Decorative scan-line motif shared by all six cards (not a real barcode). */
-.dev-card__barcode,
-.info-card__barcode {
+.about-card__barcode {
   flex: 1;
+  height: 30px;
   border: 2px solid var(--ink);
   border-radius: 6px;
   background-image: repeating-linear-gradient(
@@ -163,22 +170,39 @@
   );
 }
 
-.dev-card__barcode {
-  height: 30px;
-}
-
+/* legacy aliases — kept so both card types render identically */
+.dev-card__barcode,
 .info-card__barcode {
-  height: 14px;
+  flex: 1;
+  height: 30px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0 2px,
+    transparent 2px 5px,
+    var(--ink) 5px 10px,
+    transparent 10px 12px,
+    var(--ink) 12px 13px,
+    transparent 13px 18px
+  );
 }
 
-/* --- compact info cards: smaller siblings of Engineer Mode ---------------- */
+.dev-card__shape,
+.info-card__star {
+  position: static;
+  flex-shrink: 0;
+}
+
+/* --- compact info cards: smaller siblings sharing the same shell ---------- */
 
 .info-card__body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: 0.95rem 1.15rem 1rem;
+  gap: 0.75rem;
+  padding: 0.95rem 1.15rem 0.5rem;
+  justify-content: flex-start;
 }
 
 .info-card__lead {
@@ -199,6 +223,8 @@
   margin: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .info-card__rows > div {
@@ -233,13 +259,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
 }
 
 .info-card__list li {
   position: relative;
   padding-left: 1.3rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
+  line-height: 1.35;
   color: var(--ink-soft);
 }
 
@@ -247,7 +276,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0.4em;
+  top: 0.38em;
   width: 8px;
   height: 8px;
   border: 2px solid var(--ink);
@@ -259,7 +288,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: auto;
+  margin-top: 0.2rem;
 }
 
 .info-chip {
@@ -274,29 +303,28 @@
   box-shadow: var(--shadow-xs);
 }
 
-.info-card__foot {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0 1.15rem 0.9rem;
-}
-
-.info-card__star {
-  position: static;
-  flex-shrink: 0;
-}
-
 /* --- responsive: 3 -> 2 -> 1 columns ------------------------------------- */
 
 @media (max-width: 1024px) {
   .about__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+
+  .dev-card,
+  .info-card {
+    min-height: 320px;
   }
 }
 
 @media (max-width: 680px) {
   .about__grid {
     grid-template-columns: 1fr;
+  }
+
+  .dev-card,
+  .info-card {
+    min-height: auto;
   }
 }
 
