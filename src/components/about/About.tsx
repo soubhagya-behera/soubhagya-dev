@@ -1,9 +1,73 @@
+import { useRef } from 'react'
+import type { ReactNode } from 'react'
 import { SectionHeader } from '../ui/SectionHeader'
 import { Reveal } from '../ui/Reveal'
 import { Shape } from '../decorations/Shape'
+import { useCardTilt } from '../../hooks/useCardTilt'
+import { repositories } from '../../data/repositories'
+import { skillGroups } from '../../data/skills'
 import './about.css'
 
+/* Snapshot numbers are derived from the existing data modules so they stay
+   truthful if the project or skill data changes. */
+const projectCount = repositories.length
+const techCount = skillGroups.reduce((total, group) => total + group.skills.length, 0)
+
+const snapshotRows: Array<[string, string]> = [
+  ['EDUCATION', 'MCA · 2026'],
+  ['ROLE', 'Java Full-Stack Developer'],
+  ['FOCUS', 'Backend-focused'],
+  ['PROJECTS', `${projectCount}+ shipped`],
+  ['TECHNOLOGIES', `${techCount}+`],
+]
+
+const builtItems = [
+  'REST APIs',
+  'Authentication Systems',
+  'Full-Stack Applications',
+  'Real-Time Systems',
+  'Performance-focused Backends',
+]
+
+const learningItems = ['Docker', 'AWS', 'Microservices', 'System Design']
+
+const openRoles = ['Java Developer', 'Backend Developer', 'Software Engineer']
+
+interface InfoCardProps {
+  title: string
+  index: string
+  delay: number
+  children: ReactNode
+}
+
+/* Compact sibling of the Engineer Mode card: same coral header, black border,
+   thick offset shadow, hand-drawn rotation, star + barcode identity marks and
+   the exact same pointer-follow interaction via the shared hook. */
+function InfoCard({ title, index, delay, children }: InfoCardProps) {
+  const tiltRef = useRef<HTMLElement | null>(null)
+  useCardTilt(tiltRef)
+
+  return (
+    <Reveal delay={delay} className="about__cell">
+      <article ref={tiltRef} className="info-card">
+        <header className="info-card__head">
+          <span>{title}</span>
+          <span className="mono info-card__index">{index}</span>
+        </header>
+        <div className="info-card__body">{children}</div>
+        <div className="info-card__foot" aria-hidden="true">
+          <Shape variant="star" size={16} filled color="var(--yellow)" className="info-card__star" />
+          <div className="info-card__barcode" />
+        </div>
+      </article>
+    </Reveal>
+  )
+}
+
 export function About() {
+  const tiltRef = useRef<HTMLDivElement | null>(null)
+  useCardTilt(tiltRef)
+
   return (
     <section id="about" className="section about">
       <div className="container">
@@ -21,27 +85,22 @@ export function About() {
           }
         />
 
+        {/* One coherent 3 x 2 card wall. Engineer Mode is a regular grid cell,
+            not a separate right-side column. */}
         <div className="about__grid">
-          <Reveal className="about__text">
-            <p>
-              I&apos;m Soubhagya Kumar Behera, a Java Full-Stack Developer focused on building
-              secure, scalable and real-time web applications. I work primarily with Java, Spring
-              Boot, React, REST APIs, JPA/Hibernate and modern backend architecture.
+          <InfoCard title="ABOUT ME" index="01" delay={0}>
+            <p className="info-card__lead">
+              Java Full-Stack Developer focused on secure, scalable and real-time web
+              applications.
             </p>
-            <p>
-              I learn by building complete systems end-to-end — from authentication and data
-              modelling to real-time communication, payments and performance. My projects are built
-              around practical engineering decisions, clean architecture and production-minded
-              reliability.
-            </p>
-            <p>
-              I&apos;m currently looking for opportunities where I can contribute to backend and
-              full-stack products while continuing to grow as an engineer.
-            </p>
-          </Reveal>
+            <div className="info-card__chips">
+              <span className="info-chip">MCA · 2026</span>
+              <span className="info-chip">Java · Spring Boot · React</span>
+            </div>
+          </InfoCard>
 
-          <Reveal delay={140} className="about__cardwrap">
-            <div className="dev-card">
+          <Reveal delay={70} className="about__cell">
+            <div ref={tiltRef} className="dev-card">
               <div className="dev-card__head">
                 <span>ENGINEER MODE</span>
                 <span className="mono">MCA · 2026</span>
@@ -63,12 +122,6 @@ export function About() {
                   <dt>LOOKING FOR</dt>
                   <dd>Java Backend / Full-Stack Roles</dd>
                 </div>
-                <div>
-                  <dt>STATUS</dt>
-                  <dd className="dev-card__status">
-                    <span className="pulse-dot" /> Open to opportunities
-                  </dd>
-                </div>
               </dl>
               <div className="dev-card__foot">
                 <Shape variant="star" size={34} filled color="var(--yellow)" className="float-e dev-card__shape" />
@@ -76,10 +129,49 @@ export function About() {
               </div>
             </div>
           </Reveal>
+
+          <InfoCard title="DEVELOPER SNAPSHOT" index="02" delay={140}>
+            <dl className="info-card__rows">
+              {snapshotRows.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </InfoCard>
+
+          <InfoCard title="WHAT I BUILD" index="03" delay={210}>
+            <ul className="info-card__list">
+              {builtItems.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </InfoCard>
+
+          <InfoCard title="CURRENTLY LEARNING" index="04" delay={280}>
+            <div className="info-card__chips">
+              {learningItems.map(item => (
+                <span key={item} className="info-chip">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </InfoCard>
+
+          <InfoCard title="OPEN TO WORK" index="05" delay={350}>
+            <ul className="info-card__list">
+              {openRoles.map(role => (
+                <li key={role}>{role}</li>
+              ))}
+            </ul>
+            <p className="info-card__lead info-card__lead--small">
+              Open to opportunities where I can contribute to backend and full-stack products.
+            </p>
+          </InfoCard>
         </div>
       </div>
     </section>
   )
 }
-
 
