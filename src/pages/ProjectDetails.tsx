@@ -1,17 +1,10 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { getProjectBySlug, projects } from '../data/projects'
+import { getProjectBySlug } from '../data/projects'
 import { profile } from '../data/social'
 import { NotFound } from './NotFound'
-import { ProjectHero, ProjectLinks } from '../components/projects/detail/ProjectHero'
-import {
-  ProjectArchitecture,
-  ProjectChallenges,
-  ProjectOverview,
-  ProjectSecurity,
-  ProjectTechStack,
-} from '../components/projects/detail/ProjectSections'
+import { ProjectDetailContent } from '../components/projects/detail/ProjectSections'
 
 const DEFAULT_TITLE = 'Soubhagya Kumar Behera — Java Full-Stack Developer'
 const DEFAULT_DESCRIPTION =
@@ -35,24 +28,14 @@ export function ProjectDetails() {
     return <NotFound />
   }
 
-  const index = projects.findIndex(item => item.id === project.id)
-  const prev = projects[(index - 1 + projects.length) % projects.length]
-  const next = projects[(index + 1) % projects.length]
-
   return (
     <article className="pd">
       <div className="container">
-        <Link to={{ pathname: '/', hash: '#projects' }} className="pd__back link-grow">
-          <ArrowLeft size={17} aria-hidden="true" /> All projects
+        <Link to={{ pathname: '/', hash: '#projects' }} className="pd__back link-grow mono">
+          <ArrowLeft size={16} aria-hidden="true" /> Back to Projects
         </Link>
       </div>
-      <ProjectHero project={project} />
-      <ProjectOverview project={project} />
-      <ProjectTechStack project={project} />
-      <ProjectArchitecture project={project} />
-      <ProjectSecurity project={project} />
-      <ProjectChallenges project={project} />
-      <ProjectLinks project={project} prev={prev} next={next} />
+      <ProjectDetailContent project={project} />
     </article>
   )
 }

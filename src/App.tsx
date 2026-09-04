@@ -37,6 +37,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:slug" element={<ProjectDetails />} />
+          <Route path="/project/:slug" element={<ProjectDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

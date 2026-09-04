@@ -27,14 +27,23 @@ export interface Project {
   engineeringHighlights: string[]
   security?: string[]
   technologies: string[]
+  stack?: string[]
   techGroups: TechGroup[]
   architecture: ArchitectureLayer[]
   architectureNote?: string
   challenges: string[]
   learnings: string[]
+  metrics?: string[]
   githubUrl: string
   liveUrl?: string
+  demo?: string
   image?: string
+  imageSmall?: string
+  imageAlt?: string
+  year?: string
+  role?: string
+  duration?: string
+  teamSize?: string
   gallery?: string[]
   featured: boolean
 }
