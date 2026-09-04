@@ -36,7 +36,10 @@ export function Experience() {
                   </Sticker>
                 </li>
                 {items.map((item, index) => (
-                  <li key={item.id} className="timeline__item">
+                  <li
+                    key={item.id}
+                    className={`timeline__item${item.id === 'bsc-bhadrak' ? ' timeline__item--compact' : ''}`}
+                  >
                     <span className={`timeline__node timeline__node--${item.kind}`} aria-hidden="true" />
                     <Reveal delay={index * 100}>
                       <ExperienceCard item={item} />

@@ -1,9 +1,9 @@
 .experience {
-  padding-bottom: clamp(1.2rem, 2.5vw, 1.9rem);
+  padding-bottom: clamp(0.85rem, 2vw, 1.35rem);
 }
 
 .experience .sec-head {
-  margin-bottom: clamp(1.25rem, 3vw, 1.95rem);
+  margin-bottom: clamp(1rem, 2.6vw, 1.65rem);
 }
 
 .timeline {
@@ -28,7 +28,11 @@
 }
 
 .timeline__item + .timeline__item {
-  margin-top: clamp(0.85rem, 2vw, 1.2rem);
+  margin-top: clamp(0.75rem, 1.8vw, 1rem);
+}
+
+.timeline__item--compact {
+  margin-top: clamp(0.42rem, 1.2vw, 0.62rem) !important;
 }
 
 .timeline__node {
@@ -55,8 +59,8 @@
 
 .timeline__group {
   padding-left: clamp(2.8rem, 6vw, 4rem);
-  margin-top: clamp(0.9rem, 2vw, 1.2rem);
-  margin-bottom: clamp(0.6rem, 1.5vw, 0.85rem);
+  margin-top: clamp(0.7rem, 1.6vw, 0.95rem);
+  margin-bottom: clamp(0.45rem, 1.2vw, 0.65rem);
 }
 
 .timeline > .timeline__group:first-child {
@@ -158,4 +162,49 @@
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-top: 0.75rem;
+}
+
+/* --- MCA primary compact (slightly tighter than internship, still comfortable) --- */
+.xp-card--mca {
+  padding: 0.88rem 1rem;
+}
+
+.xp-card--mca .xp-card__head {
+  margin-bottom: 0.42rem;
+}
+
+.xp-card--mca .xp-card__list {
+  margin-top: 0.5rem;
+}
+
+/* --- compact secondary education (B.Sc.) — same Memphis language, much tighter --- */
+.xp-card--compact {
+  padding: 0.62rem 0.82rem;
+}
+
+.xp-card--compact .xp-card__head {
+  margin-bottom: 0.28rem;
+}
+
+.xp-card--compact .display-lg {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  line-height: 1.1;
+}
+
+.xp-card--compact .xp-card__org {
+  font-size: 0.78rem;
+  margin-top: 0.14rem;
+}
+
+.xp-card--compact .xp-card__loc {
+  margin-top: 0.2rem;
+}
+
+.xp-card--compact .xp-card__list {
+  margin-top: 0.32rem;
+  gap: 0.18rem;
+}
+
+.xp-card--compact .xp-card__list li {
+  font-size: 0.82rem;
 }

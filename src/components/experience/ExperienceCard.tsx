@@ -9,9 +9,13 @@ interface ExperienceCardProps {
 export function ExperienceCard({ item }: ExperienceCardProps) {
   const isInternship = item.kind === 'internship'
   const isEducation = item.kind === 'education'
+  const isBsc = item.id === 'bsc-bhadrak'
+  const isMca = item.id === 'mca-usbm'
 
   return (
-    <article className={`xp-card xp-card--${item.kind}`}>
+    <article
+      className={`xp-card xp-card--${item.kind}${isBsc ? ' xp-card--compact' : ''}${isMca ? ' xp-card--mca' : ''}`}
+    >
       <header className="xp-card__head">
         <Sticker accent={isEducation ? 'cobalt' : 'coral'} rotate={-2}>
           {isInternship ? (
