@@ -15,10 +15,9 @@ const techCount = skillGroups.reduce((total, group) => total + group.skills.leng
 
 const snapshotRows: Array<[string, string]> = [
   ['EDUCATION', 'MCA · 2026'],
-  ['ROLE', 'Java Full-Stack Developer'],
-  ['FOCUS', 'Backend-focused'],
   ['PROJECTS', `${projectCount}+ shipped`],
   ['TECHNOLOGIES', `${techCount}+`],
+  ['STACK', 'Java \u00b7 Spring Boot \u00b7 React'],
 ]
 
 const builtItems = [
@@ -151,9 +150,6 @@ export function About() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <p className="info-card__lead info-card__lead--small">
-              Building stronger foundations in deployment, distributed systems and system design.
-            </p>
           </InfoCard>
         </div>
       </div>
