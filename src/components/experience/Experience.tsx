@@ -6,8 +6,8 @@ import { ExperienceCard } from './ExperienceCard'
 import { experience } from '../../data/experience'
 import './experience.css'
 
-const GROUPS: { kind: 'independent' | 'education'; label: string }[] = [
-  { kind: 'independent', label: 'Independent Development' },
+const GROUPS: { kind: 'internship' | 'education'; label: string }[] = [
+  { kind: 'internship', label: 'Internship' },
   { kind: 'education', label: 'Education' },
 ]
 
@@ -22,7 +22,7 @@ export function Experience() {
           deco="zigzag"
           decoColor="var(--mint)"
           title="The road so far."
-          subtitle="Independent builds and formal education — no padded titles, every entry shipped real code."
+          subtitle="A single internship plus formal education — honest and compact."
         />
         <ol className="timeline">
           {GROUPS.map(group => {
@@ -31,7 +31,7 @@ export function Experience() {
             return (
               <Fragment key={group.kind}>
                 <li className="timeline__group">
-                  <Sticker accent={group.kind === 'independent' ? 'coral' : 'cobalt'} rotate={-2}>
+                  <Sticker accent={group.kind === 'internship' ? 'coral' : 'cobalt'} rotate={-2}>
                     {group.label}
                   </Sticker>
                 </li>

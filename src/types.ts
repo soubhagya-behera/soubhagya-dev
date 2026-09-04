@@ -41,7 +41,7 @@ export interface Project {
 
 export interface ExperienceItem {
   id: string
-  kind: 'independent' | 'education'
+  kind: 'internship' | 'education' | 'independent'
   role: string
   org: string
   period: string

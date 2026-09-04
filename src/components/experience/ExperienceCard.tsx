@@ -1,4 +1,4 @@
-import { GraduationCap, MapPin, Terminal } from 'lucide-react'
+import { Briefcase, GraduationCap, MapPin } from 'lucide-react'
 import type { ExperienceItem } from '../../types'
 import { Sticker } from '../ui/Sticker'
 
@@ -7,13 +7,16 @@ interface ExperienceCardProps {
 }
 
 export function ExperienceCard({ item }: ExperienceCardProps) {
+  const isInternship = item.kind === 'internship'
+  const isEducation = item.kind === 'education'
+
   return (
     <article className={`xp-card xp-card--${item.kind}`}>
       <header className="xp-card__head">
-        <Sticker accent={item.kind === 'independent' ? 'coral' : 'cobalt'} rotate={-2}>
-          {item.kind === 'independent' ? (
+        <Sticker accent={isEducation ? 'cobalt' : 'coral'} rotate={-2}>
+          {isInternship ? (
             <>
-              <Terminal size={12} aria-hidden="true" /> Independent
+              <Briefcase size={12} aria-hidden="true" /> Internship
             </>
           ) : (
             <>
@@ -30,7 +33,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
         <MapPin size={13} aria-hidden="true" /> {item.location}
       </p>
 
-      <p className="xp-card__desc">{item.description}</p>
+      {item.description ? <p className="xp-card__desc">{item.description}</p> : null}
 
       {item.achievements.length > 0 && (
         <ul className="xp-card__list">
@@ -40,13 +43,15 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
         </ul>
       )}
 
-      <ul className="xp-card__tech">
-        {item.technologies.map(technology => (
-          <li key={technology} className="chip">
-            {technology}
-          </li>
-        ))}
-      </ul>
+      {item.technologies.length > 0 && (
+        <ul className="xp-card__tech">
+          {item.technologies.map(technology => (
+            <li key={technology} className="chip">
+              {technology}
+            </li>
+          ))}
+        </ul>
+      )}
     </article>
   )
 }
