@@ -31,15 +31,6 @@ const builtItems = [
 
 const learningItems = ['Docker', 'AWS', 'Microservices', 'System Design']
 
-const openRoles = ['Java Developer', 'Backend Developer', 'Software Engineer']
-
-const aboutMeItems = [
-  'Java Full-Stack Developer',
-  'MCA Graduate · 2026',
-  'Backend-focused engineer',
-  'Secure, scalable & real-time systems',
-]
-
 interface InfoCardProps {
   title: string
   index: string
@@ -103,22 +94,9 @@ export function About() {
           }
         />
 
-        {/* One coherent 3 x 2 card wall. Engineer Mode is a regular grid cell,
-            not a separate right-side column. */}
+        {/* One coherent 2 x 2 card wall. Four cards fill the grid exactly — no empty cells. */}
         <div className="about__grid">
-          <InfoCard title="ABOUT ME" index="01" delay={0}>
-            <ul className="info-card__list">
-              {aboutMeItems.map(item => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <div className="info-card__chips">
-              <span className="info-chip">MCA · 2026</span>
-              <span className="info-chip">Java · Spring Boot · React</span>
-            </div>
-          </InfoCard>
-
-          <Reveal delay={70} className="about__cell">
+          <Reveal delay={0} className="about__cell">
             <div ref={tiltRef} className="dev-card">
               <div className="dev-card__head">
                 <span>ENGINEER MODE</span>
@@ -148,7 +126,7 @@ export function About() {
             </div>
           </Reveal>
 
-          <InfoCard title="DEVELOPER SNAPSHOT" index="02" delay={140}>
+          <InfoCard title="DEVELOPER SNAPSHOT" index="02" delay={70}>
             <dl className="info-card__rows">
               {snapshotRows.map(([label, value]) => (
                 <div key={label}>
@@ -159,7 +137,7 @@ export function About() {
             </dl>
           </InfoCard>
 
-          <InfoCard title="WHAT I BUILD" index="03" delay={210}>
+          <InfoCard title="WHAT I BUILD" index="03" delay={140}>
             <ul className="info-card__list">
               {builtItems.map(item => (
                 <li key={item}>{item}</li>
@@ -167,7 +145,7 @@ export function About() {
             </ul>
           </InfoCard>
 
-          <InfoCard title="CURRENTLY LEARNING" index="04" delay={280}>
+          <InfoCard title="CURRENTLY LEARNING" index="04" delay={210}>
             <ul className="info-card__list">
               {learningItems.map(item => (
                 <li key={item}>{item}</li>
@@ -175,17 +153,6 @@ export function About() {
             </ul>
             <p className="info-card__lead info-card__lead--small">
               Building stronger foundations in deployment, distributed systems and system design.
-            </p>
-          </InfoCard>
-
-          <InfoCard title="OPEN TO WORK" index="05" delay={350}>
-            <ul className="info-card__list">
-              {openRoles.map(role => (
-                <li key={role}>{role}</li>
-              ))}
-            </ul>
-            <p className="info-card__lead info-card__lead--small">
-              Open to opportunities where I can contribute to backend and full-stack products.
             </p>
           </InfoCard>
         </div>

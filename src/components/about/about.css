@@ -3,12 +3,17 @@
   padding-bottom: clamp(1.25rem, 2vw, 1.75rem);
 }
 
-/* --- one coherent 3 x 2 About card wall ---------------------------------- */
+/* Tighten heading → grid gap only for About (≈35% reduction vs global sec-head). */
+.about .sec-head {
+  margin-bottom: clamp(1.25rem, 3vw, 1.95rem);
+}
+
+/* --- one coherent 2 x 2 About card wall ---------------------------------- */
 
 .about__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 1.5rem);
   align-items: stretch;
 }
@@ -303,12 +308,12 @@
   box-shadow: var(--shadow-xs);
 }
 
-/* --- responsive: 3 -> 2 -> 1 columns ------------------------------------- */
+/* --- responsive: 2 -> 1 columns ------------------------------------------ */
 
 @media (max-width: 1024px) {
   .about__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: auto;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
 
   .dev-card,
@@ -320,6 +325,8 @@
 @media (max-width: 680px) {
   .about__grid {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: auto;
   }
 
   .dev-card,

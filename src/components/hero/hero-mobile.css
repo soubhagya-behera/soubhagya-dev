@@ -61,12 +61,10 @@
     -webkit-text-stroke-width: 2.5px;
   }
 
-  /* On tablet/mobile almost everything is full-width, so background
-     decorations would collide with real content. This hides the star
-     (near the name), the cross/"+" (near the socials), ring, triangle,
-     zigzag and dots. Only the top-left squiggle survives at this range. */
-  .hero__deco-star,
-  .hero__deco-cross,
+  /* On tablet/mobile the grid is single-column so wide decorations would
+     collide with copy/card. Ring, triangle, zigzag and dots are hidden here
+     to keep the background clean; star (name collision) and cross ("+")
+     near socials are preserved until <=520px per mobile-only requirements. */
   .hero__deco-ring,
   .hero__deco-triangle,
   .hero__deco-zigzag,
@@ -164,17 +162,29 @@
 
   /*
    * Mobile cleanup — the card becomes the single visual centerpiece.
-   * The three card stickers (JAVA, REAL-TIME, SECURE BY DEFAULT) and the
-   * last background squiggle are hidden at mobile widths only; desktop
-   * (>520px) keeps every sticker and decoration untouched.
+   * The three card stickers (JAVA, REAL-TIME, SECURE BY DEFAULT),
+   * the decorative "+" (cross) near socials, the star colliding with
+   * the name, and the last squiggle are hidden at mobile widths only;
+   * desktop (>520px) keeps every sticker and decoration untouched.
+   *
+   * IMPORTANT: `!important` is required here. In the bundled stylesheet
+   * the base `.sticker { display: inline-flex }` (base.css) and
+   * `.deco { display: block }` (decorations.css) rules are emitted AFTER
+   * this media query with equal specificity, so a plain `display: none`
+   * loses the cascade and the elements stay visible on mobile.
    */
   .hero__float-tag--1,
   .hero__float-tag--2,
   .hero__float-tag--3 {
-    display: none;
+    display: none !important;
+  }
+
+  .hero__deco-star,
+  .hero__deco-cross {
+    display: none !important;
   }
 
   .hero__deco-squiggle {
-    display: none;
+    display: none !important;
   }
 }
