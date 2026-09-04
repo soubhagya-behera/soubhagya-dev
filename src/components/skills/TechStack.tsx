@@ -1,7 +1,7 @@
 import { Reveal } from '../ui/Reveal'
 import { SectionHeader } from '../ui/SectionHeader'
 import { Sticker } from '../ui/Sticker'
-import { currentlyLearning, skillGroups } from '../../data/skills'
+import { skillGroups } from '../../data/skills'
 import './techstack.css'
 
 export function TechStack() {
@@ -39,18 +39,6 @@ export function TechStack() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={150} className="stack__learning">
-          <p className="mono stack__learning-label">CURRENTLY LEARNING</p>
-          <ul>
-            {currentlyLearning.map(topic => (
-              <li key={topic} className="chip">
-                {topic}
-              </li>
-            ))}
-          </ul>
-          <span className="pulse-dot stack__learning-dot" aria-hidden="true" />
-        </Reveal>
       </div>
     </section>
   )
