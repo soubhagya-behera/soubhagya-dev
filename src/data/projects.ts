@@ -1,4 +1,4 @@
-import type { AccentName, ProcessStep, Project } from '../types'
+import type { AccentName, Project } from '../types'
 
 export const projects: Project[] = [
   {
@@ -769,36 +769,3 @@ export const ACCENTS: Record<AccentName, { main: string; tint: string }> = {
   yellow: { main: '#FFC928', tint: '#FFF3D1' },
   mint: { main: '#42D6A4', tint: '#DCF7EC' },
 }
-
-export const processSteps: ProcessStep[] = [
-  {
-    number: '01',
-    title: 'Understand',
-    description: 'Requirements, constraints and the boring questions nobody asked yet.',
-    accent: 'coral',
-  },
-  {
-    number: '02',
-    title: 'Design',
-    description: 'Data model first, API contracts second, diagrams before code.',
-    accent: 'cobalt',
-  },
-  {
-    number: '03',
-    title: 'Build',
-    description: 'Backend core first, then frontend against the real API — no mock drift.',
-    accent: 'yellow',
-  },
-  {
-    number: '04',
-    title: 'Test',
-    description: 'Edge cases, failure paths, concurrency and the unhappy users.',
-    accent: 'mint',
-  },
-  {
-    number: '05',
-    title: 'Ship',
-    description: 'Dockerize, deploy, watch the logs, repeat.',
-    accent: 'coral',
-  },
-]

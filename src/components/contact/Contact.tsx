@@ -61,7 +61,7 @@ export function Contact() {
     <section id="contact" className="section contact">
       <div className="container">
         <SectionHeader
-          index="08"
+          index="07"
           label="Contact"
           accent="coral"
           title="Let's talk shop."

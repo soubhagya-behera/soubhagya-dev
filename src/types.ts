@@ -75,10 +75,3 @@ export interface Repository {
   language: string | null
   stars: number | null
 }
-
-export interface ProcessStep {
-  number: string
-  title: string
-  description: string
-  accent: AccentName
-}
