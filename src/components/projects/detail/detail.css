@@ -549,6 +549,9 @@ p.pd__desc {
   }
 }
 @media (max-width: 640px) {
+  .pd__back {
+    margin-top: 12px;
+  }
   .pd-intro {
     padding-top: 0.2rem;
   }
