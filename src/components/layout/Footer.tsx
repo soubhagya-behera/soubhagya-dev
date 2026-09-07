@@ -1,4 +1,4 @@
-import { ArrowUp, Mail, MapPin } from 'lucide-react'
+import { ArrowUp, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { links, profile } from '../../data/social'
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
@@ -22,9 +22,8 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="footer__deco" aria-hidden="true">
-        <Squiggle color="rgba(248, 241, 223, 0.22)" className="footer__squiggle float-c" />
-        <Shape variant="ring" size={120} color="rgba(255, 201, 40, 0.25)" strokeWidth={4} className="footer__ring float-d" />
-        <Shape variant="circle" size={54} filled color="var(--coral)" className="footer__dot float-b" />
+        <Squiggle color="rgba(248, 241, 223, 0.18)" className="footer__squiggle float-c" />
+        <Shape variant="ring" size={96} color="rgba(255, 201, 40, 0.2)" strokeWidth={3} className="footer__ring float-d" />
       </div>
 
       <div className="container footer__grid">
@@ -35,22 +34,30 @@ export function Footer() {
           </p>
           <p className="footer__role">{profile.role}</p>
           <p className="footer__tag">Building serious software with a straight face and a colorful desk.</p>
-          <p className="footer__loc mono">
-            <MapPin size={14} aria-hidden="true" /> {profile.location}
-          </p>
         </div>
 
         <nav className="footer__nav" aria-label="Footer">
           <h3 className="footer__heading">Menu</h3>
-          <ul>
-            {FOOTER_LINKS.map(link => (
-              <li key={link.id}>
-                <Link to={{ pathname: '/', hash: `#${link.id}` }} className="link-grow">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="footer__menu">
+            <ul className="footer__menu-row">
+              {FOOTER_LINKS.slice(0, 4).map(link => (
+                <li key={link.id}>
+                  <Link to={{ pathname: '/', hash: `#${link.id}` }} className="link-grow">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className="footer__menu-row">
+              {FOOTER_LINKS.slice(4).map(link => (
+                <li key={link.id}>
+                  <Link to={{ pathname: '/', hash: `#${link.id}` }} className="link-grow">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </nav>
 
         <div className="footer__connect">
