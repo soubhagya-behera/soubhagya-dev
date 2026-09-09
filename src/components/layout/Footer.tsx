@@ -4,6 +4,7 @@ import { links, profile } from '../../data/social'
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
 import { Squiggle } from '../decorations/Squiggle'
 import { Shape } from '../decorations/Shape'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import './footer.css'
 
 const FOOTER_LINKS = [
@@ -18,6 +19,11 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const reduced = usePrefersReducedMotion()
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' })
+  }
 
   return (
     <footer className="footer">
@@ -84,9 +90,9 @@ export function Footer() {
 
       <div className="container footer__bar">
         <p>© {year} Soubhagya Kumar Behera — designed & built with React.</p>
-        <Link to="/" className="footer__top" aria-label="Back to top">
+        <button type="button" className="footer__top" aria-label="Back to top" onClick={scrollToTop}>
           BACK TO TOP <ArrowUp size={15} aria-hidden="true" />
-        </Link>
+        </button>
       </div>
     </footer>
   )

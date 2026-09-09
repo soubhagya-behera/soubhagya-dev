@@ -254,9 +254,11 @@
   letter-spacing: 0.08em;
   color: var(--cream);
   text-decoration: none;
+  background: transparent;
   border: 1.5px solid rgba(248, 241, 223, 0.45);
   border-radius: var(--radius-pill);
   padding: 0.4em 0.9em;
+  cursor: pointer;
   transition:
     background-color var(--dur-fast) ease,
     color var(--dur-fast) ease,
