@@ -488,6 +488,14 @@ button.sticker:hover {
   }
 }
 
+/* mobile-only: smoother native vertical scroll — no animation, just momentum */
+@media (max-width: 520px) {
+  html {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
