@@ -1,0 +1,296 @@
+/* HackerBoot — full-screen system boot (no terminal box)
+   Lightweight: only CSS transitions/animations, no canvas/images.
+   Visual: immersive dark background + centered enlarged mono boot sequence.
+*/
+
+.hboot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 32px);
+  background: #080a0d;
+  color: #e6f0ee;
+  font-family: var(--font-mono);
+  overflow: hidden;
+  isolation: isolate;
+  overscroll-behavior: none;
+}
+
+.hboot__scan,
+.hboot__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* subtle scanlines */
+.hboot__scan {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0 1px,
+    transparent 1px 3px
+  );
+  opacity: 0.28;
+  mix-blend-mode: soft-light;
+}
+
+/* soft vignette + faint grid */
+.hboot__vignette {
+  background:
+    radial-gradient(ellipse at center, transparent 62%, rgba(0, 0, 0, 0.55) 100%),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: auto, 22px 22px;
+  opacity: 0.9;
+}
+
+/* centered boot content — no box/chrome */
+.hboot__content {
+  position: relative;
+  z-index: 1;
+  width: min(760px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hboot__lines {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 156px;
+}
+
+.hboot__line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: clamp(0.92rem, 1.35vw + 0.62rem, 1.32rem);
+  line-height: 1.85;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(230, 240, 238, 0.88);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.hboot__line.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hboot__line.is-accent {
+  color: #6ee7b7;
+  font-weight: 800;
+  font-size: clamp(1rem, 1.45vw + 0.7rem, 1.42rem);
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 12px rgba(52, 211, 153, 0.45),
+    0 0 28px rgba(52, 211, 153, 0.18);
+  align-self: center;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hboot__prompt {
+  color: rgba(110, 231, 183, 0.9);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.hboot__text {
+  min-width: 0;
+}
+
+.hboot__check {
+  color: #34d399;
+}
+
+/* blinking cursor — block */
+.hboot__cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.12em;
+  background: #6ee7b7;
+  vertical-align: -0.18em;
+  margin-left: 2px;
+  animation: hboot-blink 1s step-end infinite;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.45);
+}
+
+.hboot__cursor--title {
+  height: 1.05em;
+  width: 11px;
+  vertical-align: -0.08em;
+  margin-left: 8px;
+}
+
+/* reveal title block — centered */
+.hboot__reveal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 22px;
+  padding-top: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  transition-delay: 0.06s;
+}
+
+.hboot__reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hboot__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.hboot__title {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 5.2vw, 2.85rem);
+  line-height: 1;
+  letter-spacing: 0.09em;
+  color: #f8fafc;
+  margin: 0;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.4);
+}
+
+.hboot__subtitle {
+  margin-top: 10px;
+  font-size: clamp(0.62rem, 0.9vw + 0.38rem, 0.78rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(230, 240, 238, 0.62);
+}
+
+.hboot__progress-wrap {
+  margin-top: 22px;
+  width: min(360px, 100%);
+}
+
+.hboot__progress {
+  height: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  padding: 2px;
+}
+
+.hboot__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #34d399 0%, #22d3ee 100%);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.35);
+  transition: width 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: width;
+}
+
+.hboot__progress-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: rgba(230, 240, 238, 0.48);
+  white-space: nowrap;
+}
+
+/* exit: smooth fade + ultra-subtle glitch */
+.hboot.is-exiting {
+  animation: hboot-exit 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.hboot.is-exiting .hboot__content {
+  animation: hboot-shell-exit 0.32s ease forwards;
+}
+
+@keyframes hboot-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes hboot-exit {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes hboot-shell-exit {
+  0% { transform: translateY(0) scale(1); filter: none; opacity: 1; }
+  22% { transform: translateY(-1px) translateX(0.6px); filter: brightness(1.08); }
+  45% { transform: translateY(0) translateX(-0.7px); }
+  100% { transform: translateY(-6px) scale(0.98); opacity: 0; filter: blur(0.6px); }
+}
+
+/* responsive */
+@media (max-width: 560px) {
+  .hboot {
+    padding: 16px;
+  }
+  .hboot__content {
+    width: calc(100vw - 24px);
+  }
+  .hboot__lines {
+    max-width: 100%;
+    min-height: 132px;
+  }
+  .hboot__line {
+    font-size: clamp(0.78rem, 3.6vw, 1rem);
+    line-height: 1.8;
+    gap: 7px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .hboot__line.is-accent {
+    font-size: clamp(0.88rem, 4vw, 1.12rem);
+  }
+  .hboot__title {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+  .hboot__subtitle {
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+  }
+  .hboot__progress-wrap {
+    width: 100%;
+    max-width: 300px;
+  }
+  .hboot__progress-meta {
+    font-size: 0.52rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hboot__line {
+    letter-spacing: 0.04em;
+  }
+}
+
+/* accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hboot__scan { display: none; }
+  .hboot__cursor { animation: none !important; }
+  .hboot__line,
+  .hboot__reveal,
+  .hboot__progress-fill { transition-duration: 0.01ms !important; }
+  .hboot.is-exiting,
+  .hboot.is-exiting .hboot__content { animation-duration: 0.01ms !important; }
+}

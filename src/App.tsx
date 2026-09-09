@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
@@ -6,6 +6,7 @@ import { Home } from './pages/Home'
 import { ProjectDetails } from './pages/ProjectDetails'
 import { NotFound } from './pages/NotFound'
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion'
+import { HackerBoot } from './components/loader/HackerBoot'
 
 function ScrollManager() {
   const { pathname, hash } = useLocation()
@@ -26,8 +27,12 @@ function ScrollManager() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+  const [bootDone, setBootDone] = useState(() => pathname !== '/')
+
   return (
     <>
+      {!bootDone && <HackerBoot onDone={() => setBootDone(true)} />}
       <a className="skip-link" href="#main">
         Skip to content
       </a>
